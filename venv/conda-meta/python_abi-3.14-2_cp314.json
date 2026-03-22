@@ -1,0 +1,31 @@
+{
+  "name": "python_abi",
+  "version": "3.14",
+  "build": "2_cp314",
+  "build_number": 2,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "subdir": "win-64",
+  "fn": "python_abi-3.14-2_cp314.conda",
+  "md5": "b27a7e1c9d130831d154870fe242bf8e",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/python_abi-3.14-2_cp314.conda",
+  "sha256": "3aca24e92adeab5f69d800dc8606523304358403070c6fc7d35107bdd04e498a",
+  "depends": [],
+  "constrains": [
+    "python 3.14.* *_cp314"
+  ],
+  "license": "BSD-3-Clause",
+  "timestamp": 1764021095000,
+  "size": 5957,
+  "requested_spec": "None",
+  "package_tarball_full_path": "C:\\Users\\vedan\\anaconda3\\pkgs\\python_abi-3.14-2_cp314.conda",
+  "extracted_package_dir": "C:\\Users\\vedan\\anaconda3\\pkgs\\python_abi-3.14-2_cp314",
+  "files": [],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "C:\\Users\\vedan\\anaconda3\\pkgs\\python_abi-3.14-2_cp314",
+    "type": 1
+  }
+}

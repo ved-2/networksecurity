@@ -1,0 +1,26 @@
+[ 2026-04-12 17:37:17,502 ] 162 numexpr.utils - INFO - NumExpr defaulting to 16 threads.
+[ 2026-04-12 17:37:30,479 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[ 2026-04-12 17:37:30,488 ] 107 dagshub - INFO - Accessing as ved-2
+[ 2026-04-12 17:37:32,450 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/repos/ved-2/networksecurity "HTTP/1.1 200 OK"
+[ 2026-04-12 17:37:34,292 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[ 2026-04-12 17:37:34,296 ] 107 dagshub - INFO - Initialized MLflow to track repo "ved-2/networksecurity"
+[ 2026-04-12 17:37:34,298 ] 107 dagshub - INFO - Repository ved-2/networksecurity initialized!
+[ 2026-04-12 17:37:41,153 ] 246 root - INFO - Model 'BestModel' already registered. Creating a new version.
+[ 2026-04-12 17:37:41,717 ] 41 root - INFO - Start data Ingestion
+[ 2026-04-12 17:37:43,168 ] 66 root - INFO - Performed train test split on the dataframe
+[ 2026-04-12 17:37:43,168 ] 68 root - INFO - Exited split_data_as_train_test method of Data_Ingestion class
+[ 2026-04-12 17:37:43,169 ] 76 root - INFO - Exporting train and test file path.
+[ 2026-04-12 17:37:43,235 ] 85 root - INFO - Exported train and test file path.
+[ 2026-04-12 17:37:43,236 ] 44 root - INFO - Data Ingestion completed and artifact: DataIngestionArtifact(trained_file_path='Artifacts\\04_12_2026_17_37_17\\data_ingestion\\ingested\\train.csv', test_file_path='Artifacts\\04_12_2026_17_37_17\\data_ingestion\\ingested\\test.csv')
+[ 2026-04-12 17:37:43,244 ] 54 root - INFO - Initiate the data Validation
+[ 2026-04-12 17:37:43,335 ] 31 root - INFO - Required number of columns:2
+[ 2026-04-12 17:37:43,335 ] 32 root - INFO - Data frame has columns:31
+[ 2026-04-12 17:37:43,335 ] 31 root - INFO - Required number of columns:2
+[ 2026-04-12 17:37:43,335 ] 32 root - INFO - Data frame has columns:31
+[ 2026-04-12 17:37:43,580 ] 64 root - INFO - Entered initiate_data_transformation method of DataTransformation class
+[ 2026-04-12 17:37:43,580 ] 66 root - INFO - Starting data transformation
+[ 2026-04-12 17:37:43,623 ] 49 root - INFO - Entered get_data_transformer_object method of transformation class
+[ 2026-04-12 17:37:43,623 ] 54 root - INFO - Initialise KNNImputer with {'missing_values': nan, 'n_neighbors': 3, 'weights': 'uniform'}
+[ 2026-04-12 17:37:43,657 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2026-04-12 17:37:43,661 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2026-04-12 17:37:43,661 ] 46 root - INFO - Entered the save_object method of MainUtils class

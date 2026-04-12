@@ -1,0 +1,8 @@
+[ 2026-04-12 17:12:04,115 ] 162 numexpr.utils - INFO - NumExpr defaulting to 16 threads.
+[ 2026-04-12 17:12:11,942 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[ 2026-04-12 17:12:11,951 ] 107 dagshub - INFO - Accessing as ved-2
+[ 2026-04-12 17:12:13,260 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/repos/ved-2/networksecurity "HTTP/1.1 200 OK"
+[ 2026-04-12 17:12:14,572 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[ 2026-04-12 17:12:14,576 ] 107 dagshub - INFO - Initialized MLflow to track repo "ved-2/networksecurity"
+[ 2026-04-12 17:12:14,578 ] 107 dagshub - INFO - Repository ved-2/networksecurity initialized!
+[ 2026-04-12 17:12:20,204 ] 246 root - INFO - Model 'BestModel' already registered. Creating a new version.

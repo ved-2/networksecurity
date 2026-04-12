@@ -1,0 +1,142 @@
+name: workflow
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'README.md'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  integration:
+    name: Continuous Integration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Lint code
+        run: echo "Linting repository"
+
+      - name: Run unit tests
+        run: echo "Running unit tests"
+
+  build-and-push-ecr-image:
+    name: Continuous Delivery
+    needs: integration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install Utilities
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq unzip
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+  
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY_NAME }}
+          IMAGE_TAG: latest
+        run: |
+          echo "Building and pushing Docker image..."
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+
+      - name: Free up disk space after build
+        run: |
+          echo "Cleaning up after build to free up space..."
+          docker system prune -af --volumes
+
+      - name: Free Disk Space Before Build
+        run: |
+          echo "Disk space before cleanup:"
+          df -h
+          sudo rm -rf /usr/local/.ghcup
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          sudo rm -rf /usr/local/lib/android/sdk/ndk
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+          sudo apt-get clean
+          echo "Disk space after cleanup:"
+          df -h
+
+  Continuous-Deployment:
+    needs: build-and-push-ecr-image
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Free Disk Space Before Build
+        run: |
+          echo "Disk space before cleanup:"
+          df -h
+          docker system prune -af
+          sudo apt-get clean
+          sudo rm -rf /tmp/*
+          sudo rm -rf /opt/hostedtoolcache
+          sudo rm -rf $AGENT_TOOLSDIRECTORY
+          sudo apt-get remove -y firefox llvm* 
+          sudo rm -rf /usr/share/swift /usr/share/miniconda /usr/share/az* /usr/local/lib/node_modules /usr/local/share/chromium /usr/local/share/powershell
+          sudo rm -rf /usr/local/.ghcup
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          sudo rm -rf /usr/local/lib/android/sdk/ndk
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+          sudo apt-get clean
+          echo "Disk space after cleanup:"
+          df -h
+
+      - name: Free up space by deleting node_modules
+        run: rm -rf node_modules
+      
+      - name: Pull latest images
+        run: |
+          echo "Pulling the latest Docker image..."
+          docker pull ${{ secrets.AWS_ECR_LOGIN_URI }}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
+
+      - name: Run Docker Image to serve users
+        run: |
+          echo "Running the latest Docker container..."
+          docker run -d -p 8080:8080 --ipc="host" --name=networksecurity \
+            -e 'AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}' \
+            -e 'AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}' \
+            -e 'AWS_REGION=${{ secrets.AWS_REGION }}' \
+            ${{ secrets.AWS_ECR_LOGIN_URI }}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
+
+      - name: Clean previous images and containers
+        run: |
+          echo "Cleaning up unused Docker resources..."
+          docker system prune -af --volumes

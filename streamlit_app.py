@@ -269,14 +269,12 @@ def render_hero(dataset: pd.DataFrame) -> None:
     st.markdown(
         """
         <div class="hero-card">
-            <div class="tag">Mini Project Demo Ready</div>
-            <div class="tag">Streamlit UI</div>
-            <div class="tag">Phishing Detection</div>
+            <div class="tag"></div>
+            <div class="tag"></div>
+            <div class="tag"></div>
             <div class="hero-title">PhishGuard AI</div>
             <div class="hero-subtitle">
-                An interactive phishing detection dashboard for live prediction, batch testing,
-                and project presentation. It uses your trained local model and turns the backend-first
-                workflow into a cleaner showcase for evaluation and viva demos.
+                An interactive phishing detection dashboard for live prediction, batch testing.
             </div>
         </div>
         """,
@@ -341,26 +339,7 @@ def render_overview_tab(dataset: pd.DataFrame) -> None:
         )
         st.bar_chart(distribution)
 
-    st.markdown('<div class="section-title">What Makes This UI Better</div>', unsafe_allow_html=True)
-    feature_col, notes_col = st.columns(2)
-    with feature_col:
-        st.markdown(
-            """
-            - Clean dashboard layout instead of Swagger docs
-            - Single prediction form for viva demonstration
-            - Batch CSV upload with instant downloadable output
-            - Visual dataset summary for presentation impact
-            """
-        )
-    with notes_col:
-        st.markdown(
-            """
-            - Local model loading, so no MongoDB is needed for demo
-            - Uses your existing `final_model` artifacts
-            - Keeps the project focused on phishing detection workflow
-            - Better first impression for marks based on UI
-            """
-        )
+    
 
 
 def render_single_prediction_tab(dataset: pd.DataFrame) -> None:
@@ -421,7 +400,6 @@ def render_batch_prediction_tab(dataset: pd.DataFrame) -> None:
         st.markdown(
             """
             Upload a CSV that contains the same 30 feature columns used during training.
-            This is the best tab to use if your teacher asks for bulk testing or output export.
             """
         )
         st.download_button(
@@ -431,7 +409,7 @@ def render_batch_prediction_tab(dataset: pd.DataFrame) -> None:
             mime="text/csv",
             use_container_width=True,
         )
-        st.caption("Tip: Use the sample file format to avoid column mismatch errors.")
+    
 
     with upload_col:
         uploaded_file = st.file_uploader("Upload feature CSV", type=["csv"])
@@ -468,11 +446,7 @@ def render_feature_guide_tab() -> None:
         for feature in FEATURE_COLUMNS
     ]
     st.dataframe(pd.DataFrame(guide_rows), use_container_width=True)
-    st.info(
-        "In this dataset, feature values are encoded numerically. During presentation, you can explain "
-        "that the app converts those technical signals into an easier-to-use phishing assessment dashboard."
-    )
-
+    
 
 def validate_required_files() -> None:
     missing_files = [path.name for path in [DATA_PATH, MODEL_PATH, PREPROCESSOR_PATH] if not path.exists()]
@@ -488,7 +462,6 @@ def validate_required_files() -> None:
 def main() -> None:
     inject_styles()
     validate_required_files()
-    render_sidebar()
     dataset = load_dataset()
 
     render_hero(dataset)

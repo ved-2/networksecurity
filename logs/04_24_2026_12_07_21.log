@@ -1,0 +1,38 @@
+[ 2026-04-24 12:07:22,522 ] 162 numexpr.utils - INFO - NumExpr defaulting to 16 threads.
+[ 2026-04-24 12:07:41,311 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[ 2026-04-24 12:07:41,332 ] 107 dagshub - INFO - Accessing as ved-2
+[ 2026-04-24 12:07:42,845 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/repos/ved-2/networksecurity "HTTP/1.1 200 OK"
+[ 2026-04-24 12:07:44,139 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[ 2026-04-24 12:07:44,142 ] 107 dagshub - INFO - Initialized MLflow to track repo "ved-2/networksecurity"
+[ 2026-04-24 12:07:44,155 ] 107 dagshub - INFO - Repository ved-2/networksecurity initialized!
+[ 2026-04-24 12:07:49,119 ] 246 root - INFO - Model 'BestModel' already registered. Creating a new version.
+[ 2026-04-24 12:07:49,119 ] 18 root - INFO - Initiate the data ingestion
+[ 2026-04-24 12:07:50,632 ] 66 root - INFO - Performed train test split on the dataframe
+[ 2026-04-24 12:07:50,632 ] 68 root - INFO - Exited split_data_as_train_test method of Data_Ingestion class
+[ 2026-04-24 12:07:50,632 ] 76 root - INFO - Exporting train and test file path.
+[ 2026-04-24 12:07:50,702 ] 85 root - INFO - Exported train and test file path.
+[ 2026-04-24 12:07:50,702 ] 20 root - INFO - Data ingestion completed
+[ 2026-04-24 12:07:50,709 ] 27 root - INFO - Initiate the data Validation
+[ 2026-04-24 12:07:50,806 ] 31 root - INFO - Required number of columns:2
+[ 2026-04-24 12:07:50,806 ] 32 root - INFO - Data frame has columns:31
+[ 2026-04-24 12:07:50,806 ] 31 root - INFO - Required number of columns:2
+[ 2026-04-24 12:07:50,806 ] 32 root - INFO - Data frame has columns:31
+[ 2026-04-24 12:07:50,976 ] 30 root - INFO - Data validation completed
+[ 2026-04-24 12:07:50,978 ] 35 root - INFO - Data transfromation started
+[ 2026-04-24 12:07:50,978 ] 64 root - INFO - Entered initiate_data_transformation method of DataTransformation class
+[ 2026-04-24 12:07:50,978 ] 66 root - INFO - Starting data transformation
+[ 2026-04-24 12:07:51,023 ] 49 root - INFO - Entered get_data_transformer_object method of transformation class
+[ 2026-04-24 12:07:51,024 ] 54 root - INFO - Initialise KNNImputer with {'missing_values': nan, 'n_neighbors': 3, 'weights': 'uniform'}
+[ 2026-04-24 12:07:51,050 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2026-04-24 12:07:51,054 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2026-04-24 12:07:51,054 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2026-04-24 12:07:51,058 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2026-04-24 12:07:51,061 ] 39 root - INFO - Data transfromation completed
+[ 2026-04-24 12:15:40,033 ] 123 root - INFO - Model 'BestModel' already registered. Creating a new version.
+[ 2026-04-24 12:16:01,856 ] 123 root - INFO - Model 'BestModel' already registered. Creating a new version.
+[ 2026-04-24 12:16:02,628 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2026-04-24 12:16:02,632 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2026-04-24 12:16:02,632 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2026-04-24 12:16:02,719 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2026-04-24 12:16:20,619 ] 212 root - INFO - Model trainer artifact: ModelTrainerArtifact(trained_model_file_path='Artifacts\\04_24_2026_12_07_23\\model_trainer\\trained_model\\model.pkl', train_metric_artifact=ClassificationMetricArtifact(f1_score=0.9911684092985483, precision_score=0.9890599675850892, recall_score=0.9932858596134283), test_metric_artifact=ClassificationMetricArtifact(f1_score=0.9752, precision_score=0.9689984101748808, recall_score=0.9814814814814815))
+[ 2026-04-24 12:16:20,636 ] 47 root - INFO - Model training artifact created
